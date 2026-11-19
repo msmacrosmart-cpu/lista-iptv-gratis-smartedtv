@@ -241,7 +241,7 @@ function Index() {
 
         <section id="instalar" className="scroll-mt-20 mx-auto max-w-[1120px] px-5 pb-20">
           <p className="label-text text-center text-[10px] text-silver">Guia rápido</p>
-          <h2 className="title-text mt-3 text-center text-2xl sm:text-4xl">Como instalar o app <span className="accent-text">IPTV grátis</span></h2>
+          <h2 className="title-text mt-3 text-center text-2xl sm:text-4xl">Como instalar o app <span className="accent-text">SMARTEDTV grátis</span></h2>
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {steps.map((p, i) => (
               <div key={p.badge} className={`glass-card relative flex flex-col p-6 ${i === 0 ? "border-silver/70" : ""}`}>

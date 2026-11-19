@@ -37,7 +37,7 @@ export function InstallErrorArticle() {
       <article className="glass-card p-6 sm:p-9">
         <p className="label-text text-[10px] text-silver">Solução de problemas</p>
         <h2 className="title-text mt-3 text-xl sm:text-3xl">
-          Como resolver o erro <span className="accent-text">"App não instalado"</span> no Android ou TV Box
+          Como resolver o erro <span className="text-silver">"App não instalado"</span> no Android ou TV Box
         </h2>
         <p className="mt-4 text-sm text-muted-foreground">
           Quando aparece a mensagem <strong className="text-foreground">"App não instalado"</strong>, quase sempre é
