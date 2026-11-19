@@ -134,7 +134,7 @@ const sections = [
 const why = [
   { icon: Zap, title: "Rápido de instalar", text: "Pronto para usar em poucos minutos." },
   { icon: PlayCircle, title: "Fácil de usar", text: "Menus claros e em português." },
-  { icon: Tv, title: "Vários aparelhos", text: "Celular, tablet, TV Box e stick." },
+  { icon: Tv, title: "Vários aparelhos", text: "Celular, Tablet, Android TV, TV Box e TV Stick." },
   { icon: ShieldCheck, title: "Com ou sem anúncios", text: "Você escolhe como assistir." },
 ];
 
