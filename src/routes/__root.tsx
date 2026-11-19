@@ -97,6 +97,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: appCss,
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      // Pré-conexão com as redes de anúncio: reduz latência do script e evita
+      // que a política de referrer bloqueie a entrega do criativo.
+      { rel: "preconnect", href: "https://fluffy-machine.com" },
+      { rel: "dns-prefetch", href: "https://fluffy-machine.com" },
+      { rel: "preconnect", href: "https://massivesalad.com" },
+      { rel: "dns-prefetch", href: "https://massivesalad.com" },
+      { rel: "preconnect", href: "https://www.massivesalad.com" },
     ],
   }),
   shellComponent: RootShell,

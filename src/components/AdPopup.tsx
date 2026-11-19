@@ -1,15 +1,24 @@
-import { useEffect, useRef, useState } from "react";
-import { ChevronDown, Megaphone, X } from "lucide-react";
+import { useEffect, useRef } from "react";
 
 /**
- * Popup de anúncio (fluffy-machine), minimizável.
+ * Popup de anúncio (fluffy-machine).
  *
- * Regras:
- * - Só aparece no cliente, depois de um pequeno atraso (não bloqueia a primeira
- *   renderização nem o LCP).
- * - Aparece no máximo uma vez por sessão de navegação.
- * - Fechar/minimizar nunca impede o uso do site: o anúncio fica num iframe
- *   isolado, fora do fluxo do conteúdo.
+ * IMPORTANTE — por que NÃO usar <iframe> aqui:
+ * as redes de popup entregam um script que cria a própria camada flutuante e
+ * depende de rodar na janela principal (window.open, document.write, cookies de
+ * primeira parte). Dentro de um iframe com sandbox/allow-popups o script roda
+ * mas o popup fica preso ao iframe e nunca aparece — era exatamente o que
+ * bloqueava o anúncio. Além disso, o navegador bloqueia popups que não vêm de
+ * uma ação do usuário no frame.
+ *
+ * Solução: injetar o <script> do provedor direto no <body>, uma única vez.
+ *
+ * Regras de segurança/experiência:
+ * - Roda só no cliente e só depois de o usuário interagir ou após um atraso,
+ *   que é o que os navegadores exigem para liberar popups.
+ * - Uma vez por sessão (sessionStorage).
+ * - Nunca no /admin.
+ * - Marca o container como data-ad-provider para o anunciante medir o slot.
  */
 const POPUP_SRC =
   "https://fluffy-machine.com/bi3MVd0kP.3upCv/bGmmVeJMZ_D/0Z3cNfjhQXyeM/D/A/xbLhTdcL2IN/DeI-w/MgD/UK";
@@ -17,92 +26,58 @@ const POPUP_SRC =
 const SEEN_KEY = "smartedtv-ad-popup-seen";
 
 export function AdPopup() {
-  const [visible, setVisible] = useState(false);
-  const [minimized, setMinimized] = useState(false);
-  const handledRef = useRef(false);
+  const injectedRef = useRef(false);
 
   useEffect(() => {
-    if (handledRef.current) return;
-    handledRef.current = true;
+    if (injectedRef.current) return;
+    injectedRef.current = true;
+
+    // Não anuncia em páginas internas/admin.
+    if (typeof window !== "undefined" && window.location.pathname.startsWith("/admin")) return;
 
     let alreadySeen = false;
     try {
       alreadySeen = sessionStorage.getItem(SEEN_KEY) === "1";
     } catch {
-      /* modo privado */
+      /* modo privado: segue e marca só em memória */
     }
     if (alreadySeen) return;
 
-    const timer = window.setTimeout(() => {
-      setVisible(true);
+    let injected = false;
+
+    function inject() {
+      if (injected) return;
+      injected = true;
+      document.removeEventListener("pointerdown", inject);
+      document.removeEventListener("keydown", inject);
+
       try {
         sessionStorage.setItem(SEEN_KEY, "1");
       } catch {
         /* ignora */
       }
-    }, 6000);
 
-    return () => window.clearTimeout(timer);
+      const script = document.createElement("script");
+      script.src = POPUP_SRC;
+      script.async = true;
+      script.referrerPolicy = "no-referrer-when-downgrade";
+      script.setAttribute("data-ad-provider", "popup");
+      document.body.appendChild(script);
+    }
+
+    // Primeiro toque/clique/tecla libera popup no navegador; se ninguém
+    // interagir, injeta mesmo assim após 12s.
+    document.addEventListener("pointerdown", inject, { once: true, passive: true });
+    document.addEventListener("keydown", inject, { once: true });
+    const timer = window.setTimeout(inject, 12_000);
+
+    return () => {
+      window.clearTimeout(timer);
+      document.removeEventListener("pointerdown", inject);
+      document.removeEventListener("keydown", inject);
+    };
   }, []);
 
-  function close() {
-    setVisible(false);
-  }
-
-  if (!visible) return null;
-
-  return (
-    <aside
-      aria-label="Publicidade"
-      className="fixed bottom-4 left-4 z-[60] w-[min(92vw,360px)]"
-    >
-      <div className="glass-card overflow-hidden border-silver/50 bg-background shadow-2xl">
-        <div className="flex items-center justify-between gap-2 border-b border-border bg-secondary px-3 py-2">
-          <p className="label-text flex items-center gap-1.5 text-[9px] text-silver">
-            <Megaphone className="h-3 w-3" aria-hidden /> Publicidade
-          </p>
-          <div className="flex items-center gap-1">
-            <button
-              type="button"
-              onClick={() => setMinimized((v) => !v)}
-              aria-label={minimized ? "Expandir anúncio" : "Minimizar anúncio"}
-              aria-expanded={!minimized}
-              className="flex h-6 w-6 items-center justify-center text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <ChevronDown className={`h-4 w-4 transition-transform ${minimized ? "" : "rotate-180"}`} aria-hidden />
-            </button>
-            <button
-              type="button"
-              onClick={close}
-              aria-label="Fechar anúncio"
-              className="flex h-6 w-6 items-center justify-center text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <X className="h-4 w-4" aria-hidden />
-            </button>
-          </div>
-        </div>
-
-        <div hidden={minimized} className="h-[280px] w-full bg-black/40">
-          <iframe
-            src={POPUP_SRC}
-            title="Publicidade"
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms"
-            className="h-full w-full border-0"
-          />
-        </div>
-
-        {minimized && (
-          <button
-            type="button"
-            onClick={() => setMinimized(false)}
-            className="w-full px-3 py-2 text-[10px] text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Mostrar anúncio
-          </button>
-        )}
-      </div>
-    </aside>
-  );
+  // O criativo é renderizado pelo próprio fornecedor; a página só hospeda o script.
+  return <div data-ad-slot="popup-provider" hidden aria-hidden="true" />;
 }
