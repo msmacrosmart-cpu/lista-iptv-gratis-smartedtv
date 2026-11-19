@@ -118,10 +118,10 @@ const sections = [
     items: ["Versão sempre atualizada", "Arquivo verificado", "Sem cadastro"],
   },
   {
-    img: secDevices, alt: "TV Box, stick de TV, celular e tablet Android compatíveis com o SMARTEDTV",
+    img: secDevices, alt: "TV Box, TV Stick, Celular e Tablet Android compatíveis com o SMARTEDTV",
     label: "Compatibilidade", title: <>Funciona no seu Android, TV Box e <span className="accent-text">tablet!</span></>,
     text: "O app roda em Celulares e Tablets Android, TV Android, TV Box e TV Stick. Em outros aparelhos, verifique se é possível instalar arquivos APK antes de começar.",
-    items: ["Celular e tablet Android", "TV Box e stick Android", "Android 5.0 ou superior"],
+    items: ["Celular, Tablet e TV Android", "TV Box e TV Stick", "Android 5.0 ou superior"],
   },
   {
     img: secGuide, alt: "Pessoa no sofá usando o controle remoto para configurar o aplicativo SMARTEDTV na TV",
@@ -148,7 +148,7 @@ const steps = [
 const faq = [
   { q: "O aplicativo SMARTEDTV é gratuito?", a: "Sim. O download do SMARTEDTV.apk é grátis e não exige cadastro. Ao abrir o app pela primeira vez, você escolhe usar com anúncios (grátis) ou sem anúncios." },
   { q: "Como escolho usar com ou sem anúncios?", a: "Na primeira abertura do SMARTEDTV aparece a opção de modo com anúncios ou sem anúncios. Escolha o que preferir: o modo com anúncios é gratuito, o modo sem anúncios deixa a experiência mais limpa. Você pode alterar essa opção depois nas configurações do app." },
-  { q: "Em quais aparelhos posso instalar?", a: "Em celulares e tablets Android, TV Box e sticks com Android 5.0 ou superior. iPhone e algumas Smart TVs não permitem instalar arquivos APK." },
+  { q: "Em quais aparelhos posso instalar?", a: "Em Celular, Tablet, TV Android, TV Box e TV Stick com Android 5.0 ou superior. iPhone e algumas Smart TVs não permitem instalar arquivos APK." },
   { q: "É seguro instalar um arquivo APK?", a: "Baixe o arquivo apenas por este site, onde publicamos sempre a versão oficial. Durante a instalação, o Android pede permissão para fontes desconhecidas; você pode desativá-la depois." },
 ];
 
