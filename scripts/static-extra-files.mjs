@@ -7,7 +7,7 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-const SITE_URL = process.env.SITE_URL_OVERRIDE || "https://lista-iptv-gratis.kesug.com";
+const SITE_URL = process.env.SITE_URL_OVERRIDE || "https://lista-iptv-gratis-smartedtv.xyz";
 const OUT_DIR = process.env.STATIC_OUT_DIR || "dist/client";
 const LAST_MOD = new Date().toISOString().slice(0, 10);
 

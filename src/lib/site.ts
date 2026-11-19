@@ -2,9 +2,9 @@
  * Configuração única de domínio do site.
  * Usada em robots.txt, sitemap.xml, canonical, og:url e JSON-LD.
  */
-export const SITE_URL = "https://lista-iptv-gratis.kesug.com";
+export const SITE_URL = "https://lista-iptv-gratis-smartedtv.xyz";
 
-export const SITE_HOST = "lista-iptv-gratis.kesug.com";
+export const SITE_HOST = "lista-iptv-gratis-smartedtv.xyz";
 
 export const SITE_NAME = "SMARTEDTV | Lista IPTV Grátis";
 
