@@ -4,6 +4,7 @@ import { Check, ChevronDown, Tv, Smartphone, ShieldCheck, HelpCircle, Zap, PlayC
 import { DownloadButton } from "@/components/DownloadButton";
 import { activeReleaseQuery } from "@/lib/release";
 import { longTailQuestions, relatedKeywords } from "@/lib/seo";
+import { absoluteUrl } from "@/lib/site";
 import { useQuery } from "@tanstack/react-query";
 import secTv from "@/assets/sec-tv.jpg";
 import secDownload from "@/assets/sec-download.jpg";
@@ -23,13 +24,13 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESC },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/" },
+      { property: "og:url", content: absoluteUrl("/") },
       { property: "og:locale", content: "pt_BR" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: TITLE },
       { name: "twitter:description", content: DESC },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [{ rel: "canonical", href: absoluteUrl("/") }],
     scripts: [
       {
         type: "application/ld+json",
@@ -47,6 +48,45 @@ export const Route = createFileRoute("/")({
             "@type": "Question", name: f.q,
             acceptedAnswer: { "@type": "Answer", text: f.a },
           })),
+        }),
+      },
+      {
+        // As 120 dúvidas de cauda longa viram uma lista de perguntas relacionadas,
+        // sinalizando o tema para o Google sem respostas duplicadas/genéricas.
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: "Dúvidas sobre o SMARTEDTV e IPTV grátis",
+          description: "120 perguntas de cauda longa sobre download, instalação, lista M3U, compatibilidade e uso do SMARTEDTV.",
+          numberOfItems: longTailQuestions.length,
+          itemListElement: longTailQuestions.map((q, i) => ({
+            "@type": "ListItem", position: i + 1, name: q,
+          })),
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org", "@type": "WebPage",
+          name: TITLE,
+          description: DESC,
+          inLanguage: "pt-BR",
+          url: absoluteUrl("/"),
+          keywords: relatedKeywords.join(", "),
+          about: {
+            "@type": "SoftwareApplication",
+            name: "SMARTEDTV",
+            operatingSystem: "Android",
+            applicationCategory: "MultimediaApplication",
+            offers: { "@type": "Offer", price: "0", priceCurrency: "BRL" },
+          },
+          mainEntity: {
+            "@type": "ItemList",
+            itemListElement: relatedKeywords.map((k, i) => ({
+              "@type": "ListItem", position: i + 1, name: k,
+            })),
+          },
         }),
       },
     ],
