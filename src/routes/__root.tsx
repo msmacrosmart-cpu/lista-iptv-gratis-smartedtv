@@ -97,9 +97,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: appCss,
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
-      // O popup é servido pelo próprio domínio via /f0178c6feb.php (proxy PHP).
-      // Preconnect só para a rede que o PHP consulta no servidor.
-      { rel: "dns-prefetch", href: "https://api.hilltopads.com" },
+      // Popup e banner carregam direto dos provedores (formato que já funciona
+      // no site publicado); preconnect reduz a latência do criativo.
+      { rel: "preconnect", href: "https://hilltopads.com" },
+      { rel: "dns-prefetch", href: "https://hilltopads.com" },
+      { rel: "dns-prefetch", href: "https://massivesalad.com" },
     ],
   }),
   shellComponent: RootShell,
@@ -117,10 +119,6 @@ function RootShell({ children }: { children: ReactNode }) {
       </head>
       <body>
         {children}
-        {/* Popup: carregado via proxy PHP do próprio domínio (anti-adblock).
-            O arquivo f0178c6feb.php roda no servidor, busca o código na rede de
-            anúncios e devolve JS — assim o bloqueador não reconhece a origem. */}
-        <script src="/f0178c6feb.php" async data-ad-provider="popup-proxy" />
         <Scripts />
       </body>
     </html>

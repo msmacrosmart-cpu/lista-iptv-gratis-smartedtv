@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Check, ChevronDown, Tv, Smartphone, ShieldCheck, HelpCircle, Zap, PlayCircle, Download } from "lucide-react";
 import { DownloadButton } from "@/components/DownloadButton";
 import { AdBanner } from "@/components/AdBanner";
+import { AdPopup } from "@/components/AdPopup";
 import { activeReleaseQuery } from "@/lib/release";
 import { longTailQuestions, relatedKeywords } from "@/lib/seo";
 import { absoluteUrl } from "@/lib/site";
@@ -296,6 +297,8 @@ function Index() {
           <nav className="flex gap-4"><a href="#instalar" className="hover:text-foreground">Como instalar</a><a href="#baixar" className="hover:text-foreground">Download</a></nav>
         </div>
       </footer>
+
+      <AdPopup />
 
       <a href="#baixar" aria-label="Ir para o download do aplicativo" className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-transform hover:scale-105">
         <Download className="h-6 w-6" aria-hidden />
