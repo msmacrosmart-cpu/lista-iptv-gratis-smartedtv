@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Check, ChevronDown, Tv, Smartphone, ShieldCheck, HelpCircle, Zap, PlayCircle, Download } from "lucide-react";
 import { DownloadButton } from "@/components/DownloadButton";
 import { AdBanner } from "@/components/AdBanner";
+import { InstallErrorArticle } from "@/components/InstallErrorArticle";
 import { activeReleaseQuery } from "@/lib/release";
 import { longTailQuestions, relatedKeywords } from "@/lib/seo";
 import { absoluteUrl } from "@/lib/site";
@@ -260,6 +261,9 @@ function Index() {
             <DownloadButton className="w-full sm:w-auto" />
           </div>
         </section>
+
+        {/* Artigo de apoio: erro "App não instalado" — antes das sanfonas */}
+        <InstallErrorArticle />
 
         <section className="mx-auto max-w-[820px] px-5 pb-20">
           <h2 className="title-text text-center text-2xl sm:text-4xl">Perguntas frequentes</h2>
