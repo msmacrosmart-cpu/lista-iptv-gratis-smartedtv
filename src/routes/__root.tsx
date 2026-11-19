@@ -14,6 +14,19 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Toaster } from "../components/ui/sonner";
 
+// Snippet de popup do provedor (vapid-size). Inline de propósito: o código usa
+// document.currentScript para se auto-injetar no ponto correto do documento.
+const AD_POPUP_SNIPPET = `(function(mzrqirn){
+var d = document,
+    s = d.createElement('script'),
+    l = d.currentScript || d.scripts[d.scripts.length - 1];
+s.settings = mzrqirn || {};
+s.src = "//vapid-size.com/cNDy9w6.bc2p5/lzSjWiQg9kNoz/Y/0/MFjGAmw/MKSb0u3ON/jOQuy_M_DsA/1i";
+s.async = true;
+s.referrerPolicy = 'no-referrer-when-downgrade';
+l.parentNode.insertBefore(s, l);
+})({})`;
+
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -99,6 +112,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
       // Pré-conexão com as redes de anúncio: reduz latência do script e evita
       // que a política de referrer bloqueie a entrega do criativo.
+      { rel: "preconnect", href: "https://vapid-size.com" },
+      { rel: "dns-prefetch", href: "https://vapid-size.com" },
       { rel: "preconnect", href: "https://fluffy-machine.com" },
       { rel: "dns-prefetch", href: "https://fluffy-machine.com" },
       { rel: "preconnect", href: "https://massivesalad.com" },
@@ -121,6 +136,12 @@ function RootShell({ children }: { children: ReactNode }) {
       </head>
       <body>
         {children}
+        {/* Popup: script inline no HTML, como o snippet original do provedor.
+            Precisa ser inline porque o código usa document.currentScript. */}
+        <script
+          data-ad-provider="popup-inline"
+          dangerouslySetInnerHTML={{ __html: AD_POPUP_SNIPPET }}
+        />
         <Scripts />
       </body>
     </html>
