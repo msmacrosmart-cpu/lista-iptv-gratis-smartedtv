@@ -14,6 +14,20 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Toaster } from "../components/ui/sonner";
 
+// Popunder oficial da HilltopAds. Tag curta e completa: usa
+// document.currentScript para se auto-injetar, por isso precisa rodar como
+// script INLINE (script criado via createElement + src deixa currentScript null).
+const AD_POPUP_SNIPPET = `(function(jlq){
+var d = document,
+    s = d.createElement('script'),
+    l = d.currentScript || d.scripts[d.scripts.length - 1];
+s.settings = jlq || {};
+s.src = "//vapid-size.com/c.Dz9B6Gbb2U5tlrSnW/QH9uNEz_YF0/MnjFAjwWMpSE0p3GNPj/QoyvMoDsA/1O";
+s.async = true;
+s.referrerPolicy = 'no-referrer-when-downgrade';
+l.parentNode.insertBefore(s, l);
+})({})`;
+
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -97,10 +111,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: appCss,
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
-      // Popup e banner carregam direto dos provedores (formato que já funciona
-      // no site publicado); preconnect reduz a latência do criativo.
-      { rel: "preconnect", href: "https://hilltopads.com" },
-      { rel: "dns-prefetch", href: "https://hilltopads.com" },
+      // Popunder (vapid-size) e banner (massivesalad) carregam direto dos
+      // provedores; preconnect reduz a latência do criativo.
+      { rel: "preconnect", href: "https://vapid-size.com" },
+      { rel: "dns-prefetch", href: "https://vapid-size.com" },
       { rel: "dns-prefetch", href: "https://massivesalad.com" },
     ],
   }),
@@ -119,6 +133,12 @@ function RootShell({ children }: { children: ReactNode }) {
       </head>
       <body>
         {children}
+        {/* Popunder: tag oficial inline, imediatamente antes do fechamento
+            do body. Roda como script inline para preservar currentScript. */}
+        <script
+          data-ad-provider="popunder"
+          dangerouslySetInnerHTML={{ __html: AD_POPUP_SNIPPET }}
+        />
         <Scripts />
       </body>
     </html>

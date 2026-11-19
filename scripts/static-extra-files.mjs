@@ -4,7 +4,7 @@
  *
  * Usado depois de `STATIC_EXPORT=1 vite build` (veja scripts/static-build.sh).
  */
-import { copyFileSync, existsSync, mkdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 const SITE_URL = process.env.SITE_URL_OVERRIDE || "https://lista-iptv-gratis-smartedtv.xyz";
@@ -95,21 +95,4 @@ writeFileSync(join(OUT_DIR, "robots.txt"), robots, "utf8");
 writeFileSync(join(OUT_DIR, "sitemap.xml"), sitemap, "utf8");
 writeFileSync(join(OUT_DIR, ".htaccess"), htaccess, "utf8");
 
-// Proxy PHP do popup (anti-adblock): precisa ir para a raiz da hospedagem,
-// pois o navegador carrega /f0178c6feb.php direto.
-const phpSources = ["f0178c6feb.php"];
-const copiedPhp = [];
-
-for (const file of phpSources) {
-  if (existsSync(file)) {
-    copyFileSync(file, join(OUT_DIR, file));
-    copiedPhp.push(file);
-  } else {
-    console.warn(`[static] AVISO: ${file} não encontrado na raiz do repositório.`);
-  }
-}
-
-console.log(
-  `[static] robots.txt, sitemap.xml e .htaccess gerados em ${OUT_DIR}` +
-    (copiedPhp.length ? ` (+ ${copiedPhp.join(", ")})` : ""),
-);
+console.log(`[static] robots.txt, sitemap.xml e .htaccess gerados em ${OUT_DIR}`);
