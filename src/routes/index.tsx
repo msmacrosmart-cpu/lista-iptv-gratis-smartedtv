@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Check, ChevronDown, Tv, Smartphone, ShieldCheck, HelpCircle, Zap, PlayCircle, Download } from "lucide-react";
 import { DownloadButton } from "@/components/DownloadButton";
 import { activeReleaseQuery } from "@/lib/release";
+import { longTailQuestions, relatedKeywords } from "@/lib/seo";
 import { useQuery } from "@tanstack/react-query";
 import secTv from "@/assets/sec-tv.jpg";
 import secDownload from "@/assets/sec-download.jpg";
@@ -17,6 +18,8 @@ export const Route = createFileRoute("/")({
     meta: [
       { title: TITLE },
       { name: "description", content: DESC },
+      { name: "keywords", content: relatedKeywords.join(", ") },
+      { name: "robots", content: "index, follow" },
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESC },
       { property: "og:type", content: "website" },
@@ -27,39 +30,51 @@ export const Route = createFileRoute("/")({
       { name: "twitter:description", content: DESC },
     ],
     links: [{ rel: "canonical", href: "/" }],
-    scripts: [{
-      type: "application/ld+json",
-      children: JSON.stringify({
-        "@context": "https://schema.org", "@type": "SoftwareApplication", name: "SMARTEDTV",
-        operatingSystem: "Android", applicationCategory: "MultimediaApplication", inLanguage: "pt-BR",
-        offers: { "@type": "Offer", price: "0", priceCurrency: "BRL" },
-      }),
-    }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org", "@type": "SoftwareApplication", name: "SMARTEDTV",
+          operatingSystem: "Android", applicationCategory: "MultimediaApplication", inLanguage: "pt-BR",
+          offers: { "@type": "Offer", price: "0", priceCurrency: "BRL" },
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org", "@type": "FAQPage",
+          mainEntity: faq.map((f) => ({
+            "@type": "Question", name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        }),
+      },
+    ],
   }),
   component: Index,
 });
 
 const sections = [
   {
-    img: secTv, alt: "Sala escura com Smart TV exibindo a tela inicial do aplicativo SMARTEDTV",
+    img: secTv, alt: "Sala colorida com Smart TV exibindo a navegação do aplicativo SMARTEDTV com categorias Início, Filmes, Séries, Esportes, Notícias e Infantil",
     label: "Aplicativo gratuito", title: <>Sua lista IPTV grátis em um <span className="accent-text">app simples!</span></>,
     text: "O SMARTEDTV é um player leve para organizar e reproduzir a lista IPTV que você já tem direito de acessar. Você adiciona o link da sua lista e o app cuida do resto.",
     items: ["Download gratuito", "Interface em português", "Leve e rápido"],
   },
   {
-    img: secDownload, alt: "Celular Android baixando o arquivo SMARTEDTV.apk",
+    img: secDownload, alt: "Celular Android colorido baixando o arquivo SMARTEDTV.apk com barra de progresso",
     label: "Download direto", title: <>Baixe o APK oficial em <span className="accent-text">poucos segundos!</span></>,
     text: "O arquivo SMARTEDTV.apk é sempre a versão mais recente publicada pela nossa equipe. Toque no botão, aguarde o download e abra o arquivo para instalar.",
     items: ["Versão sempre atualizada", "Arquivo verificado", "Sem cadastro"],
   },
   {
-    img: secDevices, alt: "TV Box, stick de TV, celular e tablet Android compatíveis com o SMARTEDTV",
+    img: secDevices, alt: "TV Box, stick de TV, celular e tablet Android coloridos compatíveis com o SMARTEDTV",
     label: "Compatibilidade", title: <>Funciona no seu Android, TV Box e <span className="accent-text">tablet!</span></>,
     text: "O app roda em celulares e tablets Android, TV Box e sticks com sistema Android. Em outros aparelhos, verifique se é possível instalar arquivos APK antes de começar.",
     items: ["Celular e tablet Android", "TV Box e stick Android", "Android 5.0 ou superior"],
   },
   {
-    img: secGuide, alt: "Pessoa usando o controle remoto para configurar o aplicativo na TV",
+    img: secGuide, alt: "Pessoa no sofá usando o controle remoto para configurar o aplicativo SMARTEDTV na TV colorida",
     label: "Uso responsável", title: <>Como assistir IPTV grátis com <span className="accent-text">tranquilidade!</span></>,
     text: "O SMARTEDTV não fornece canais nem conteúdo. Use apenas listas e transmissões que você está autorizado a assistir, como listas públicas e gratuitas ou serviços contratados.",
     items: ["Não inclui canais", "Use listas autorizadas", "Seus dados ficam com você"],
@@ -96,11 +111,7 @@ const helpFaq = [
   ["O SMARTEDTV coleta meus dados?", "O app não pede cadastro. Sua lista fica salva apenas no seu aparelho."],
 ];
 
-const terms = [
-  "lista IPTV grátis", "IPTV grátis", "lista IPTV 2026 - 27 grátis", "como assistir IPTV grátis",
-  "app IPTV grátis para Android", "baixar SMARTEDTV APK", "player IPTV para TV Box", "como instalar APK na TV Box",
-  "lista M3U atualizada", "IPTV grátis no celular", "aplicativo IPTV em português", "como adicionar lista IPTV",
-];
+const terms = relatedKeywords;
 
 function Collapsible({ title, children, defaultOpen = false, small = false }: { title: string; children: React.ReactNode; defaultOpen?: boolean; small?: boolean }) {
   const [open, setOpen] = useState(defaultOpen);
@@ -218,6 +229,17 @@ function Index() {
             <Collapsible title="Buscas relacionadas">
               <ul className="flex flex-wrap gap-2">{terms.map((t) => <li key={t} className="border border-border px-2 py-1 text-xs">{t}</li>)}</ul>
             </Collapsible>
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-[820px] px-5 pb-24">
+          <p className="label-text text-center text-[10px] text-silver">Dúvidas frequentes</p>
+          <h3 className="title-text mt-3 text-center text-xl sm:text-3xl">120 dúvidas sobre o SMARTEDTV e IPTV grátis</h3>
+          <p className="mt-3 text-center text-sm text-muted-foreground">As perguntas mais buscadas sobre download, instalação, compatibilidade, lista M3U e uso do aplicativo SMARTEDTV.</p>
+          <div className="glass-card mt-8 p-6">
+            <ol className="list-decimal space-y-2 pl-5 text-sm text-muted-foreground">
+              {longTailQuestions.map((q) => <li key={q}>{q}</li>)}
+            </ol>
           </div>
         </section>
       </main>
