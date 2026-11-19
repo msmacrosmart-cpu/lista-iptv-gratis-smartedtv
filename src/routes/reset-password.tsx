@@ -37,7 +37,7 @@ function ResetPassword() {
     setBusy(false);
     if (error) return setErr("Não foi possível redefinir. O link pode ter expirado; solicite outro.");
     toast.success("Senha redefinida com sucesso");
-    nav({ to: "/admin", replace: true });
+    nav({ to: "/", replace: true });
   }
 
   return (
