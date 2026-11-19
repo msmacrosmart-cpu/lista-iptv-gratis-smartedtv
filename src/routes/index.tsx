@@ -56,25 +56,25 @@ export const Route = createFileRoute("/")({
 
 const sections = [
   {
-    img: secTv, alt: "Sala colorida com Smart TV exibindo a navegação do aplicativo SMARTEDTV com categorias Início, Filmes, Séries, Esportes, Notícias e Infantil",
+    img: secTv, alt: "Sala com Smart TV em preto e branco exibindo a navegação do aplicativo SMARTEDTV com categorias Início, Filmes, Séries, Esportes, Notícias, Infantil e canais ao vivo",
     label: "Aplicativo gratuito", title: <>Sua lista IPTV grátis em um <span className="accent-text">app simples!</span></>,
     text: "O SMARTEDTV é um player leve para organizar e reproduzir a lista IPTV que você já tem direito de acessar. Você adiciona o link da sua lista e o app cuida do resto.",
     items: ["Download gratuito", "Interface em português", "Leve e rápido"],
   },
   {
-    img: secDownload, alt: "Celular Android colorido baixando o arquivo SMARTEDTV.apk com barra de progresso",
+    img: secDownload, alt: "Celular Android baixando o arquivo SMARTEDTV.apk com barra de progresso",
     label: "Download direto", title: <>Baixe o APK oficial em <span className="accent-text">poucos segundos!</span></>,
     text: "O arquivo SMARTEDTV.apk é sempre a versão mais recente publicada pela nossa equipe. Toque no botão, aguarde o download e abra o arquivo para instalar.",
     items: ["Versão sempre atualizada", "Arquivo verificado", "Sem cadastro"],
   },
   {
-    img: secDevices, alt: "TV Box, stick de TV, celular e tablet Android coloridos compatíveis com o SMARTEDTV",
+    img: secDevices, alt: "TV Box, stick de TV, celular e tablet Android compatíveis com o SMARTEDTV",
     label: "Compatibilidade", title: <>Funciona no seu Android, TV Box e <span className="accent-text">tablet!</span></>,
     text: "O app roda em celulares e tablets Android, TV Box e sticks com sistema Android. Em outros aparelhos, verifique se é possível instalar arquivos APK antes de começar.",
     items: ["Celular e tablet Android", "TV Box e stick Android", "Android 5.0 ou superior"],
   },
   {
-    img: secGuide, alt: "Pessoa no sofá usando o controle remoto para configurar o aplicativo SMARTEDTV na TV colorida",
+    img: secGuide, alt: "Pessoa no sofá usando o controle remoto para configurar o aplicativo SMARTEDTV na TV",
     label: "Uso responsável", title: <>Como assistir IPTV grátis com <span className="accent-text">tranquilidade!</span></>,
     text: "O SMARTEDTV não fornece canais nem conteúdo. Use apenas listas e transmissões que você está autorizado a assistir, como listas públicas e gratuitas ou serviços contratados.",
     items: ["Não inclui canais", "Use listas autorizadas", "Seus dados ficam com você"],
@@ -121,7 +121,7 @@ function Collapsible({ title, children, defaultOpen = false, small = false }: { 
         <span className={small ? "title-text text-xs sm:text-sm" : "title-text text-xs sm:text-sm"}>{title}</span>
         <ChevronDown className={`h-5 w-5 shrink-0 text-silver transition-transform ${open ? "rotate-180" : ""}`} aria-hidden />
       </button>
-      {open && <div className="px-5 pb-5 text-sm text-muted-foreground">{children}</div>}
+      <div hidden={!open} className="px-5 pb-5 text-sm text-muted-foreground">{children}</div>
     </div>
   );
 }
@@ -225,21 +225,12 @@ function Index() {
           <div className="mt-8 space-y-3">
             <Collapsible title="Mais dúvidas sobre o SMARTEDTV">
               <dl className="space-y-3">{helpFaq.map(([q, a]) => <div key={q}><dt className="font-semibold text-foreground">{q}</dt><dd>{a}</dd></div>)}</dl>
+              <p className="mt-6 text-xs text-silver">120 perguntas frequentes sobre download, instalação, lista M3U, compatibilidade e uso do SMARTEDTV:</p>
+              <ol className="mt-3 list-decimal space-y-2 pl-5">{longTailQuestions.map((q) => <li key={q}>{q}</li>)}</ol>
             </Collapsible>
             <Collapsible title="Buscas relacionadas">
               <ul className="flex flex-wrap gap-2">{terms.map((t) => <li key={t} className="border border-border px-2 py-1 text-xs">{t}</li>)}</ul>
             </Collapsible>
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-[820px] px-5 pb-24">
-          <p className="label-text text-center text-[10px] text-silver">Dúvidas frequentes</p>
-          <h3 className="title-text mt-3 text-center text-xl sm:text-3xl">120 dúvidas sobre o SMARTEDTV e IPTV grátis</h3>
-          <p className="mt-3 text-center text-sm text-muted-foreground">As perguntas mais buscadas sobre download, instalação, compatibilidade, lista M3U e uso do aplicativo SMARTEDTV.</p>
-          <div className="glass-card mt-8 p-6">
-            <ol className="list-decimal space-y-2 pl-5 text-sm text-muted-foreground">
-              {longTailQuestions.map((q) => <li key={q}>{q}</li>)}
-            </ol>
           </div>
         </section>
       </main>

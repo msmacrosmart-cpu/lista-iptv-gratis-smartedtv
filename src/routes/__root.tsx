@@ -79,7 +79,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { name: "6a97888e-site-verification", content: "47ec3d2408c0295f7ff0faabe87ea63e" },
       { title: "Lista IPTV Grátis 2026 - 27 | SMARTEDTV - Baixe o App APK" },
       { name: "description", content: "Baixe grátis o aplicativo SMARTEDTV e aprenda como assistir IPTV grátis com sua própria lista IPTV 2026 - 27, de forma simples e segura, em Android e TV Box." },
       { name: "author", content: "SMARTEDTV" },
@@ -110,6 +109,7 @@ function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-BR">
       <head>
+        <meta name="6a97888e-site-verification" content="47ec3d2408c0295f7ff0faabe87ea63e" />
         <HeadContent />
       </head>
       <body>
