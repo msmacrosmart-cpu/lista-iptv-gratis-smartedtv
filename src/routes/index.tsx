@@ -108,7 +108,7 @@ const sections = [
   {
     img: secTv, alt: "Sala com Smart TV em preto e branco exibindo a navegação do aplicativo SMARTEDTV com categorias Início, Filmes, Séries, Esportes, Notícias, Infantil e canais ao vivo",
     label: "Aplicativo gratuito", title: <>IPTV grátis em um <span className="accent-text">app simples!</span></>,
-    text: "O SMARTEDTV é um aplicativo leve de IPTV para Android. Você baixa, instala, abre e começa a assistir canais ao vivo, filmes e séries em poucos minutos.",
+    text: "O SMARTEDTV é um aplicativo de IPTV para Android. Você baixa, instala, abre e começa a assistir canais ao vivo, filmes e séries em poucos minutos.",
     items: ["Download gratuito", "Interface em português", "Leve e rápido"],
   },
   {
@@ -120,13 +120,13 @@ const sections = [
   {
     img: secDevices, alt: "TV Box, stick de TV, celular e tablet Android compatíveis com o SMARTEDTV",
     label: "Compatibilidade", title: <>Funciona no seu Android, TV Box e <span className="accent-text">tablet!</span></>,
-    text: "O app roda em celulares e tablets Android, TV Box e sticks com sistema Android. Em outros aparelhos, verifique se é possível instalar arquivos APK antes de começar.",
+    text: "O app roda em Celulares e Tablets Android, TV Android, TV Box e TV Stick. Em outros aparelhos, verifique se é possível instalar arquivos APK antes de começar.",
     items: ["Celular e tablet Android", "TV Box e stick Android", "Android 5.0 ou superior"],
   },
   {
     img: secGuide, alt: "Pessoa no sofá usando o controle remoto para configurar o aplicativo SMARTEDTV na TV",
     label: "Você escolhe", title: <>Com anúncios ou <span className="accent-text">sem anúncios!</span></>,
-    text: "Na primeira vez que abrir o app, você escolhe como quer usar o SMARTEDTV: com anúncios, para assistir de graça, ou sem anúncios, para uma experiência limpa. A escolha é sua.",
+    text: "Ao abrir o app, você escolhe como quer usar o SMARTEDTV: com anúncios, para assistir de graça, ou sem anúncios, para uma experiência limpa. A escolha é sua.",
     items: ["Escolha na primeira abertura", "Modo grátis com anúncios", "Modo limpo sem anúncios"],
   },
 ];
