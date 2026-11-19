@@ -1,0 +1,61 @@
+name: Deploy InfinityFree (FTP)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-infinityfree
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Instalar dependências
+        run: bun install --frozen-lockfile
+
+      - name: Build estático
+        run: bun run build:static
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.VITE_SUPABASE_PUBLISHABLE_KEY }}
+          VITE_SUPABASE_PROJECT_ID: ${{ secrets.VITE_SUPABASE_PROJECT_ID }}
+
+      - name: Verificar artefatos
+        run: |
+          test -f dist/client/index.html
+          test -f dist/client/robots.txt
+          test -f dist/client/sitemap.xml
+          test -f dist/client/.htaccess
+          echo "Arquivos no pacote: $(find dist/client -type f | wc -l)"
+
+      - name: Empacotar build
+        run: |
+          cd dist/client
+          zip -qr ../../site-infinityfree.zip .
+          cd ../..
+          ls -lh site-infinityfree.zip
+
+      - name: Enviar por FTP para o InfinityFree
+        continue-on-error: true
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASS: ${{ secrets.FTP_PASS }}
+          FTP_DIR: ${{ secrets.FTP_DIR }}
+        run: node scripts/deploy-ftp.mjs
+
+      - name: Guardar pacote do build
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-infinityfree
+          path: site-infinityfree.zip
+          retention-days: 30

@@ -11,7 +11,9 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "build:static": "bash scripts/build-static.sh",
+    "deploy:ftp": "node scripts/deploy-ftp.mjs"
   },
   "overrides": {
     "rolldown": "1.2.1",
@@ -81,6 +83,7 @@
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^5.2.0",
+    "basic-ftp": "^6.2.6",
     "drizzle-kit": "0.x",
     "drizzle-orm": "0.x",
     "eslint": "^9.32.0",
