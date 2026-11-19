@@ -109,7 +109,7 @@ function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-BR">
       <head>
-        <meta name="6a97888e-site-verification" content="47ec3d2408c0295f7ff0faabe87ea63e" />
+        <meta name="6a97888e-site-verification" content="ec25f3eb2dd4a7452609c0a18b7b1985" />
         <HeadContent />
       </head>
       <body>
