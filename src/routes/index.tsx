@@ -185,7 +185,7 @@ function Index() {
         <div className="mx-auto flex h-[60px] max-w-[1120px] items-center justify-between px-5">
           <Link to="/" className="flex items-center gap-2" aria-label="SMARTEDTV - página inicial">
             <span className="flex h-9 w-9 items-center justify-center bg-primary text-primary-foreground"><Tv className="h-5 w-5" aria-hidden /></span>
-            <span className="text-base font-extrabold tracking-tight text-silver">SMARTED<span className="underline decoration-2 underline-offset-4">TV</span></span>
+            <span className="text-base font-extrabold tracking-tight"><span className="text-silver">SMARTED</span><span className="text-offwhite underline decoration-silver decoration-2 underline-offset-4">TV</span></span>
           </Link>
           <a href="#instalar" className="ghost-button py-2 text-[10px] sm:text-xs"><HelpCircle className="h-4 w-4" aria-hidden />Como instalar</a>
         </div>
