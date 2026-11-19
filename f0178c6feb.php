@@ -166,6 +166,33 @@ class AntiAdBlock {
     }
 
     private function getTempDir() {
+        // InfinityFree é compartilhado e o /tmp pode não existir ou não ser
+        // gravável. Testa cada candidato antes de usar; se nenhum servir,
+        // retorna null e o cache é simplesmente desligado.
+        $candidates = array();
+
+        if (function_exists('sys_get_temp_dir')) {
+            $candidates[] = sys_get_temp_dir();
+        }
+
+        foreach (array('TMP', 'TMPDIR', 'TEMP') as $envKey) {
+            if (! empty($_ENV[$envKey])) {
+                $candidates[] = $_ENV[$envKey];
+            }
+        }
+
+        $candidates[] = dirname(__FILE__);
+
+        foreach ($candidates as $dir) {
+            if (! empty($dir) && is_dir($dir) && is_writable($dir)) {
+                return rtrim($dir, '/\\');
+            }
+        }
+
+        return null;
+    }
+
+    private function getTempDirLegacy() {
         if (! function_exists('sys_get_temp_dir')) {
             foreach (['TMP', 'TMPDIR', 'TEMP'] as $envKey) {
                 if (! empty($_ENV[$envKey])) {
@@ -193,7 +220,7 @@ class AntiAdBlock {
 
         $zoneIds      = explode('-', $this->zoneId);
         $this->zoneId = $zoneIds[0];
-        $userAgent    = $_SERVER['HTTP_USER_AGENT'];
+        $userAgent    = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
 
         if (count($zoneIds) === 2 && (
                 stristr($userAgent, 'mobi') !== false ||
@@ -216,18 +243,28 @@ class AntiAdBlock {
             $this->urlParams = $_GET;
         }
 
-        $file = $this->getTempDir() . '/hta-' . $this->getZoneId() . md5(serialize($this->urlParams)) . '.js';
+        $tempDir = $this->getTempDir();
+        $file    = null;
 
-        if (file_exists($file) && time() - filemtime($file) < 300) {
-            error_reporting($errorLevel);
+        if ($tempDir !== null) {
+            $file = $tempDir . '/hta-' . $this->getZoneId() . md5(serialize($this->urlParams)) . '.js';
 
-            return file_get_contents($file);
+            if (is_file($file) && (time() - filemtime($file)) < 300) {
+                $cached = @file_get_contents($file);
+
+                if (! empty($cached)) {
+                    error_reporting($errorLevel);
+
+                    return $cached;
+                }
+            }
         }
 
         $code = $this->makeRequest();
 
-        if (! empty($code)) {
-            file_put_contents($file, $code);
+        // Cache é opcional: falha de escrita nunca deve derrubar a resposta.
+        if (! empty($code) && $file !== null) {
+            @file_put_contents($file, $code);
         }
 
         error_reporting($errorLevel);
@@ -236,6 +273,26 @@ class AntiAdBlock {
     }
 }
 
-header('Content-Type: application/javascript');
-$antiAdBlock = new AntiAdBlock();
-echo $antiAdBlock->getCode();
+header('Content-Type: application/javascript; charset=utf-8');
+header('Access-Control-Allow-Origin: *');
+header('Cache-Control: public, max-age=300');
+header('X-Content-Type-Options: nosniff');
+
+$code = '';
+
+try {
+    $antiAdBlock = new AntiAdBlock();
+    $code = $antiAdBlock->getCode();
+} catch (Exception $e) {
+    $code = '';
+} catch (Throwable $e) {
+    $code = '';
+}
+
+// Falha do provedor nunca deve gerar erro de JS no site: devolve um no-op.
+if (empty($code)) {
+    echo '/* antiadblock: indisponivel no momento */';
+    exit;
+}
+
+echo $code;
