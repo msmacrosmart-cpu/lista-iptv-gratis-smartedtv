@@ -195,7 +195,7 @@ function Index() {
           <span className="label-text inline-flex items-center gap-2 bg-primary px-3 py-1.5 text-[10px] text-primary-foreground sm:text-xs"><Zap className="h-3.5 w-3.5" aria-hidden />App gratuito para Android</span>
           <h1 className="title-text mt-5 max-w-3xl text-4xl sm:text-6xl">O melhor do entretenimento em <span className="accent-text">2026-2027!</span></h1>
           <p className="label-text mt-3 text-xs text-silver sm:text-sm">Lista atualizada semanalmente</p>
-          <p className="mt-6 max-w-xl text-base text-muted-foreground sm:text-lg">Baixe o SMARTEDTV.apk de graça, instale no celular, tablet ou TV Box Android, abra o app, escolha usar com ou sem anúncios e comece a assistir.</p>
+          <p className="mt-6 max-w-xl text-base text-muted-foreground sm:text-lg">Baixe o SMARTEDTV.apk de graça, instale no Celular, Tablet, TV Android ou TV Box Android, abra o app, escolha usar com ou sem anúncios e comece a assistir.</p>
           <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-start">
             <DownloadButton />
             <a href="#instalar" className="ghost-button"><PlayCircle className="h-5 w-5" aria-hidden />Veja como instalar em 4 passos</a>
