@@ -79,17 +79,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lista IPTV Grátis 2026 - 27 | SMARTEDTV - Baixe o App APK" },
-      { name: "description", content: "Baixe grátis o aplicativo SMARTEDTV e aprenda como assistir IPTV grátis com sua própria lista IPTV 2026 - 27, de forma simples e segura, em Android e TV Box." },
+      { title: "IPTV Grátis 2026 - 27 | SMARTEDTV - Baixe o App APK" },
+      { name: "description", content: "Baixe grátis o SMARTEDTV.apk, instale no celular ou TV Box Android, abra o app, escolha usar com ou sem anúncios e assista IPTV grátis na hora." },
       { name: "author", content: "SMARTEDTV" },
       { name: "robots", content: "index, follow" },
-      { property: "og:title", content: "Lista IPTV Grátis 2026 - 27 | SMARTEDTV" },
-      { property: "og:description", content: "Baixe o SMARTEDTV.apk grátis e assista IPTV com sua lista em Android e TV Box." },
+      { property: "og:title", content: "IPTV Grátis 2026 - 27 | SMARTEDTV" },
+      { property: "og:description", content: "Baixe o SMARTEDTV.apk grátis, instale e assista com ou sem anúncios no Android e TV Box." },
       { property: "og:type", content: "website" },
       { property: "og:locale", content: "pt_BR" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Lista IPTV Grátis 2026 - 27 | SMARTEDTV" },
-      { name: "twitter:description", content: "Baixe o SMARTEDTV.apk grátis e assista IPTV com sua lista em Android e TV Box." },
+      { name: "twitter:title", content: "IPTV Grátis 2026 - 27 | SMARTEDTV" },
+      { name: "twitter:description", content: "Baixe o SMARTEDTV.apk grátis, instale e assista com ou sem anúncios no Android e TV Box." },
     ],
     links: [
       {

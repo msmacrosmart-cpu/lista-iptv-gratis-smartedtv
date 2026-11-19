@@ -11,7 +11,7 @@ const SITE_URL = process.env.SITE_URL_OVERRIDE || "https://lista-iptv-gratis-sma
 const OUT_DIR = process.env.STATIC_OUT_DIR || "dist/client";
 const LAST_MOD = new Date().toISOString().slice(0, 10);
 
-const robots = `# robots.txt - SMARTEDTV | Lista IPTV Grátis
+const robots = `# robots.txt - SMARTEDTV | IPTV Grátis
 User-agent: *
 Allow: /
 Disallow: /admin

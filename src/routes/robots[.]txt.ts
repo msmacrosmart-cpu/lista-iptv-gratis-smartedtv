@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SITE_URL } from "@/lib/site";
 
 const BODY = [
-  "# robots.txt - SMARTEDTV | Lista IPTV Grátis",
+  "# robots.txt - SMARTEDTV | IPTV Grátis",
   "User-agent: *",
   "Allow: /",
   "Disallow: /admin",
