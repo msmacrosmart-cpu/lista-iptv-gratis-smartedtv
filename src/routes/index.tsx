@@ -15,7 +15,7 @@ import secDownload from "@/assets/sec-download.jpg";
 import secDevices from "@/assets/sec-devices.jpg";
 import secGuide from "@/assets/sec-guide.jpg";
 
-const TITLE = "IPTV Grátis 2026 - 27 | Baixe o App SMARTEDTV (APK)";
+const TITLE = "O melhor do entretenimento em 2026-2027!";
 const DESC = "Baixe grátis o SMARTEDTV.apk, instale no celular ou TV Box Android, abra o app, escolha usar com ou sem anúncios e assista IPTV grátis na hora.";
 
 export const Route = createFileRoute("/")({
