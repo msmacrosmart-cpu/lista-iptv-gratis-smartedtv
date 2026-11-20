@@ -7,6 +7,7 @@ import { AdPopunder } from "@/components/AdPopunder";
 import { InstallErrorArticle } from "@/components/InstallErrorArticle";
 import { activeReleaseQuery } from "@/lib/release";
 import { longTailQuestions, relatedKeywords } from "@/lib/seo";
+import { helpAnswers } from "@/lib/helpAnswers";
 import { absoluteUrl } from "@/lib/site";
 import { useQuery } from "@tanstack/react-query";
 import secTv from "@/assets/sec-tv.jpg";
@@ -288,8 +289,15 @@ function Index() {
           <div className="mt-8 space-y-3">
             <Collapsible title="Mais dúvidas sobre o SMARTEDTV">
               <dl className="space-y-3">{helpFaq.map(([q, a]) => <div key={q}><dt className="font-semibold text-foreground">{q}</dt><dd>{a}</dd></div>)}</dl>
-              <p className="mt-6 text-xs text-silver">120 perguntas frequentes sobre download, instalação, modo com ou sem anúncios, aparelhos e uso do SMARTEDTV:</p>
-              <ol className="mt-3 list-decimal space-y-2 pl-5">{longTailQuestions.map((q) => <li key={q}>{q}</li>)}</ol>
+              <p className="mt-6 text-xs text-silver">120 perguntas e respostas sobre download, instalação, modo com ou sem anúncios, aparelhos e uso do SMARTEDTV:</p>
+              <ol className="mt-3 list-decimal space-y-4 pl-5">
+                {helpAnswers.map(({ q, a }) => (
+                  <li key={q}>
+                    <p className="font-semibold text-foreground">{q}</p>
+                    <p className="mt-1 text-sm">{a}</p>
+                  </li>
+                ))}
+              </ol>
             </Collapsible>
             <Collapsible title="Buscas relacionadas">
               <ul className="flex flex-wrap gap-2">{terms.map((t) => <li key={t} className="border border-border px-2 py-1 text-xs">{t}</li>)}</ul>
