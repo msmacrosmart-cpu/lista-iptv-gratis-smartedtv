@@ -31,7 +31,7 @@ export function DownloadButton({ className, showMeta = true }: { className?: str
   }
 
   return (
-    <div className="flex flex-col items-center gap-2 text-center">
+    <div className="flex flex-col gap-2">
       <button
         type="button"
         onClick={handleClick}
@@ -43,7 +43,7 @@ export function DownloadButton({ className, showMeta = true }: { className?: str
         {isLoading ? "Carregando..." : busy ? "Preparando download..." : "Baixe o aplicativo aqui"}
       </button>
       {showMeta && (
-        <p className="text-xs text-muted-foreground" aria-live="polite">
+        <p className="w-full text-center text-xs text-muted-foreground" aria-live="polite">
           {isLoading && "Verificando a versão mais recente..."}
           {unavailable && (
             <span className="inline-flex items-center gap-1">
