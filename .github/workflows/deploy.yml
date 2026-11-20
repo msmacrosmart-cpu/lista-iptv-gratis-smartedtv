@@ -1,4 +1,4 @@
-name: Deploy InfinityFree (FTP)
+name: Build e deploy
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: deploy-infinityfree
+  group: deploy-site
   cancel-in-progress: true
 
 jobs:
@@ -44,7 +44,21 @@ jobs:
           cd ../..
           ls -lh site-infinityfree.zip
 
-      - name: Enviar por FTP para o InfinityFree
+      # Publicação na Vercel: roda só quando os secrets existirem.
+      # Sem os secrets o passo é ignorado (não quebra o workflow).
+      - name: Publicar na Vercel
+        if: ${{ secrets.VERCEL_TOKEN != '' }}
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: npx --yes vercel@latest deploy --prebuilt --prod --token "$VERCEL_TOKEN" --yes
+        continue-on-error: true
+
+      # Envio por FTP (hospedagem antiga). Mantido como fallback e nunca
+      # derruba o workflow.
+      - name: Enviar por FTP
+        if: ${{ secrets.FTP_USER != '' }}
         continue-on-error: true
         env:
           FTP_HOST: ${{ secrets.FTP_HOST }}
@@ -56,6 +70,6 @@ jobs:
       - name: Guardar pacote do build
         uses: actions/upload-artifact@v4
         with:
-          name: site-infinityfree
+          name: site-build
           path: site-infinityfree.zip
           retention-days: 30
