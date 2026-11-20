@@ -259,6 +259,11 @@ function Index() {
             <p className="title-text text-xl sm:text-2xl">Versão mais recente do SMARTEDTV</p>
             {release?.release_notes && <p className="text-sm text-muted-foreground">{release.release_notes}</p>}
             <DownloadButton className="w-full sm:w-auto" />
+            <div className="mt-2 w-full border-t border-border pt-5">
+              <p className="label-text text-[10px] text-silver">Instale via Downloader</p>
+              <p className="mt-2 font-mono text-2xl font-extrabold tracking-[0.35em] text-white sm:text-3xl">8777533</p>
+              <p className="mt-2 text-xs text-muted-foreground">(Direto no aparelho)</p>
+            </div>
           </div>
         </section>
 
