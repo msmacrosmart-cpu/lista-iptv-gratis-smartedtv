@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Check, ChevronDown, Tv, Smartphone, ShieldCheck, HelpCircle, Zap, PlayCircle, Download } from "lucide-react";
 import { DownloadButton } from "@/components/DownloadButton";
 import { AdBanner } from "@/components/AdBanner";
+import { AdPopunder } from "@/components/AdPopunder";
 import { InstallErrorArticle } from "@/components/InstallErrorArticle";
 import { activeReleaseQuery } from "@/lib/release";
 import { longTailQuestions, relatedKeywords } from "@/lib/seo";
@@ -266,6 +267,9 @@ function Index() {
             </div>
           </div>
         </section>
+
+        {/* Popunder: injetado no cliente, mesmo padrão do banner */}
+        <AdPopunder />
 
         {/* Artigo de apoio: erro "App não instalado" — antes das sanfonas */}
         <InstallErrorArticle />
