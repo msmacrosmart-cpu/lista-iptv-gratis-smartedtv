@@ -133,6 +133,7 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="pt-BR">
       <head>
         <meta name="91f28fd655ba3da2977584b03691260be2b0a07c" content="91f28fd655ba3da2977584b03691260be2b0a07c" />
+        <meta name="google-site-verification" content="JS0Luw34VqBm7Dv1-HUtC_I-_0zagop4QdInCbcNlHw" />
         {/* Google Tag Manager — o mais alto possível no head */}
         <script dangerouslySetInnerHTML={{ __html: GTM_INLINE }} />
         <HeadContent />
