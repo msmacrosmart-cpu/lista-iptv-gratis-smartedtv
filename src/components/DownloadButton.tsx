@@ -31,7 +31,7 @@ export function DownloadButton({ className, showMeta = true }: { className?: str
   }
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col items-center gap-2 text-center">
       <button
         type="button"
         onClick={handleClick}
