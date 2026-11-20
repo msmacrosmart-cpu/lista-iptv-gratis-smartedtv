@@ -78,7 +78,7 @@ export const helpAnswers: HelpAnswer[] = [
   },
   {
     q: "Como instalar o SMARTEDTV na TV Box passo a passo?",
-    a: "Na TV Box: abra o Downloader, digite o código 2427000, instale e abra. O app já vem pronto para assistir e funciona bem com controle remoto. Simples assim, sem computador.",
+    a: "Na TV Box: abra o Downloader, digite o código 3359032, instale e abra. O app já vem pronto para assistir e funciona bem com controle remoto. Simples assim, sem computador.",
   },
   {
     q: "O SMARTEDTV é gratuito para baixar e usar?",
@@ -106,7 +106,7 @@ export const helpAnswers: HelpAnswer[] = [
   },
   {
     q: "Como baixar o SMARTEDTV em TV Box Android?",
-    a: "Pelo Downloader, com o código 2427000, ou baixando o APK nesta página. Em ambos os casos você instala em minutos e já abre o app com o conteúdo pronto.",
+    a: "Pelo Downloader, com o código 3359032, ou baixando o APK nesta página. Em ambos os casos você instala em minutos e já abre o app com o conteúdo pronto.",
   },
   {
     q: "O SMARTEDTV ocupa muito espaço no aparelho?",
@@ -126,7 +126,7 @@ export const helpAnswers: HelpAnswer[] = [
   },
   {
     q: "Como baixar o SMARTEDTV no Fire TV Stick?",
-    a: "Instale o Downloader no Fire TV Stick, digite o código 2427000 e pronto. O app funciona bem com controle remoto e abre direto na TV.",
+    a: "Instale o Downloader no Fire TV Stick, digite o código 3359032 e pronto. O app funciona bem com controle remoto e abre direto na TV.",
   },
   {
     q: "O SMARTEDTV funciona em Android 5.0 ou superior?",
@@ -146,7 +146,7 @@ export const helpAnswers: HelpAnswer[] = [
   },
   {
     q: "O SMARTEDTV roda em TV Box chinesa?",
-    a: "Sim, roda em TV Box Android — inclusive as modelos populares. Instale pelo Downloader com o código 2427000 e assista na TV grande, sem travamento.",
+    a: "Sim, roda em TV Box Android — inclusive as modelos populares. Instale pelo Downloader com o código 3359032 e assista na TV grande, sem travamento.",
   },
   {
     q: "Como instalar APK pelo gerenciador de arquivos do Android?",
@@ -274,7 +274,7 @@ export const helpAnswers: HelpAnswer[] = [
   },
   {
     q: "O SMARTEDTV funciona em Fire TV Stick?",
-    a: "Sim. Instale o Downloader, digite o código 2427000 e o SMARTEDTV aparece na sua TV. Funciona bem com o controle remoto do Fire TV Stick.",
+    a: "Sim. Instale o Downloader, digite o código 3359032 e o SMARTEDTV aparece na sua TV. Funciona bem com o controle remoto do Fire TV Stick.",
   },
   {
     q: "O SMARTEDTV funciona em tablet?",
@@ -392,7 +392,7 @@ export const helpAnswers: HelpAnswer[] = [
   },
   {
     q: "Como usar lista IPTV no Fire TV Stick?",
-    a: "Instale o Downloader no Fire TV Stick, digite o código 2427000 e abra o app. Se quiser usar lista própria, o app aceita importar — mas ele já vem pronto para assistir.",
+    a: "Instale o Downloader no Fire TV Stick, digite o código 3359032 e abra o app. Se quiser usar lista própria, o app aceita importar — mas ele já vem pronto para assistir.",
   },
   {
     q: "Como colocar lista IPTV no app de TV Box Android?",
