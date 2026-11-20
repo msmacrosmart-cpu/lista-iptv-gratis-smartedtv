@@ -102,6 +102,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://vapid-size.com" },
       { rel: "dns-prefetch", href: "https://vapid-size.com" },
       { rel: "dns-prefetch", href: "https://massivesalad.com" },
+      { rel: "preconnect", href: "https://www.googletagmanager.com" },
     ],
   }),
   shellComponent: RootShell,
@@ -110,11 +111,30 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   errorComponent: ErrorComponent,
 });
 
+// Google Tag Manager. O container precisa do evento gtm.start no dataLayer
+// para inicializar — sem ele o gtm.js carrega e não dispara nada.
+const GTM_ID = "GTM-TL4KJ36K";
+// A tag do gtm.js é criada aqui, dentro do próprio inline, e não como
+// <script src> separado: o React 19 iça scripts async para o topo do head,
+// o que faria o gtm.js carregar ANTES do dataLayer existir.
+const GTM_INLINE = `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+(function(){
+  var g = document.createElement('script');
+  g.async = true;
+  g.src = "https://www.googletagmanager.com/gtm.js?id=${GTM_ID}";
+  document.head.appendChild(g);
+})();`;
+
 function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-BR">
       <head>
         <meta name="91f28fd655ba3da2977584b03691260be2b0a07c" content="91f28fd655ba3da2977584b03691260be2b0a07c" />
+        {/* Google Tag Manager — o mais alto possível no head */}
+        <script dangerouslySetInnerHTML={{ __html: GTM_INLINE }} />
         <HeadContent />
       </head>
       <body>
